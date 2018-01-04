@@ -1,4 +1,4 @@
-/.vs/StackOverflowClient/v15/*.suo
+/.vs
 /packages
-/StackOverflowClient/bin
-/StackOverflowClient/obj
+/**/bin
+/**/obj

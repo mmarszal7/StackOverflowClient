@@ -1,0 +1,8 @@
+- Next ORM service (Entity makes problems all the time)
+
+- Unity container 	- Unity
+- Unit tests 		- NUnit + moq
+- Logger 		- Nlog
+
+- MVVM framework 	- MVVMLight/Devexpress
+- Micro ORM		- NHibernate?
