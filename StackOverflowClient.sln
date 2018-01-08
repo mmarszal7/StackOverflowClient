@@ -11,9 +11,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataProviders", "DataProvid
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StackOverflowClient.RestApiRepository", "StackOverflowClient.RestApiRepository\StackOverflowClient.RestApiRepository.csproj", "{CEFCBABD-C252-4889-A132-A826622C1664}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{BF4806C1-1BF9-4B3E-BEC4-3A205D7245EA}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StackOverflowClient.SQLiteRepository", "StackOverflowClient.SQLiteRepository\StackOverflowClient.SQLiteRepository.csproj", "{EE82E712-42F0-49FE-94D1-73A23F5B4A2E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{2703E2F9-0CCE-413F-9970-7533DDB498C2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

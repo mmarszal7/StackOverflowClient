@@ -225,7 +225,7 @@ namespace StackOverflowClient.View
             Task<Response> htmlTask = new Task<Response>(() => RestRepository.MakeHttpRequest(parameters));
             Task<List<Topic>> sqlTask = new Task<List<Topic>>(() => MakeDatabaseRequest());
             htmlTask.Start();
-            //sqlTask.Start();
+            sqlTask.Start();
 
             try
             {
@@ -237,7 +237,7 @@ namespace StackOverflowClient.View
                 RaisePropertyChanged();
                 return;
             }
-            //CachedTopics.AddRange(await sqlTask);
+            CachedTopics.AddRange(await sqlTask);
 
             TotalNumberOfPages = (await htmlTask).NumberOfTopics / topicsOnPage;
             Topics = cachedTopics.Count == topicsOnPage ? cachedTopics.GetRange(0, topicsOnPage) : null;

@@ -6,8 +6,7 @@ namespace StackOverflowClient.SQLiteRepository
 {
     public class DataBaseContext : DbContext
     {
-        //private const string connectionString = "Data Source=./StackOverflowDB.db;Version=3";
-        private const string connectionString = "Data Source=C:\\Users\\mmarszalek\\Documents\\Visual Studio 2017\\Projects\\StackOverflowClient\\StackOverflowDB.db;Version=3";
+        private const string connectionString = "Data Source=./StackOverflowDB.db;Version=3";
 
         public DbSet<Topic> Topics { get; set; }
         public DbSet<User> Users { get; set; }
