@@ -269,7 +269,7 @@
             {
             "Enabled" = "11:TRUE"
             "PromptEnabled" = "11:TRUE"
-            "PrerequisitesLocation" = "2:2"
+            "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
                 "Items"
@@ -743,7 +743,7 @@
             "{1525181F-901A-416C-8A58-119130FE478E}:_04CF2931E80C42F79DE902E63E2CA1AC"
             {
             "Name" = "8:#1916"
-            "AlwaysCreate" = "11:FALSE"
+            "AlwaysCreate" = "11:TRUE"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Property" = "8:DesktopFolder"
@@ -766,7 +766,7 @@
             "{1525181F-901A-416C-8A58-119130FE478E}:_CD7D4D973EB24BD8B950E9ED042F33B9"
             {
             "Name" = "8:#1919"
-            "AlwaysCreate" = "11:FALSE"
+            "AlwaysCreate" = "11:TRUE"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Property" = "8:ProgramMenuFolder"
@@ -791,7 +791,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:StackOverflowClient"
         "ProductCode" = "8:{5423CAD6-81D4-41B4-83CB-5AD49E9A7739}"
-        "PackageCode" = "8:{A71DF118-08D1-4A3F-AE1B-E6456B073610}"
+        "PackageCode" = "8:{A20E52FC-1428-4A87-AB5E-1125D7803930}"
         "UpgradeCode" = "8:{40A32369-66EF-4398-8D71-4B2CA03EA889}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -922,7 +922,7 @@
             "Target" = "8:_CD7D4D973EB24BD8B950E9ED042F33B9"
             "Folder" = "8:_CD7D4D973EB24BD8B950E9ED042F33B9"
             "WorkingFolder" = "8:_CD7D4D973EB24BD8B950E9ED042F33B9"
-            "Icon" = "8:"
+            "Icon" = "8:_55958F70EEFC45F2A0EA351830767E19"
             "Feature" = "8:"
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_F7C84177C93A4AED9F781A21C95B8DF0"
@@ -936,7 +936,7 @@
             "Target" = "8:_04CF2931E80C42F79DE902E63E2CA1AC"
             "Folder" = "8:_04CF2931E80C42F79DE902E63E2CA1AC"
             "WorkingFolder" = "8:_04CF2931E80C42F79DE902E63E2CA1AC"
-            "Icon" = "8:"
+            "Icon" = "8:_55958F70EEFC45F2A0EA351830767E19"
             "Feature" = "8:"
             }
         }
