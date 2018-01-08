@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System;
 using StackOverflowClient.Common;
+using NLog;
 
 namespace StackOverflowClient.View
 {
@@ -10,6 +11,7 @@ namespace StackOverflowClient.View
     {
         #region Fields
 
+        protected static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         private IRestRepository RestRepository;
         private IDataBaseRepository DataBaseRepository;
 

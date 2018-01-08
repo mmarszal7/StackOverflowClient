@@ -1,8 +1,11 @@
-- Next ORM service (Entity makes problems all the time)
+- try/catch with Nlog
 
 - Unity container 	- Unity
 - Unit tests 		- NUnit + moq
-- Logger 		- Nlog
+- Setup project
 
-- MVVM framework 	- MVVMLight/Devexpress
-- Micro ORM		- NHibernate?
+Kolejne serwisy:
+- MVVMLight - MVVM framework
+- Devexpress - MVVM framework
+- NHibernate - Micro ORM
+- Drapper - Micro ORM
