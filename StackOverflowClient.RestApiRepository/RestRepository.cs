@@ -16,7 +16,7 @@ namespace StackOverflowClient.RestApiRepository
 
         public Response MakeHttpRequest(object parameter)
         {
-            using (HttpClient client = new HttpClient(handler))
+            using (HttpClient client = new HttpClient(handler, false))
             {
                 var responseString = client.GetStringAsync(uri+ parameter + filter).Result;
                 var responseObject = JsonConvert.DeserializeObject<Response>(responseString);

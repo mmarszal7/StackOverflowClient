@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StackOverflowClient.View
 {
-    class NewQuestionViewModel : BaseViewModel, IDataErrorInfo
+    public class NewQuestionViewModel : BaseViewModel, IDataErrorInfo
     {
         public event EventHandler OnRequestClose;
         public RelayCommand AddQuestion { get; set; }
@@ -97,18 +97,11 @@ namespace StackOverflowClient.View
 
         #endregion
 
-        #region Public methods
-
         public NewQuestionViewModel(IDataBaseRepository dbRepository)
         {
-            AddQuestion = new RelayCommand(AddNewQuestion,
-                (object parameter) => { return IsValid; });
+            AddQuestion = new RelayCommand(AddNewQuestion, (object parameter) => { return IsValid; });
             DataBaseRepository = dbRepository;
         }
-
-        #endregion
-
-        #region Private methods
 
         private void AddNewQuestion()
         {
@@ -147,8 +140,6 @@ namespace StackOverflowClient.View
             task.Start();
             OnRequestClose(this, new EventArgs());
         }
-
-        #endregion
 
         #region Validation
 

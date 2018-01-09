@@ -2,10 +2,10 @@
 
 - Unity container 	- Unity
 - Unit tests 		- NUnit + moq
-- Setup project
 
-Kolejne serwisy:
+Kolejne projekty:
 - MVVMLight - MVVM framework
 - Devexpress - MVVM framework
+- WCF Service
 - NHibernate - Micro ORM
 - Drapper - Micro ORM

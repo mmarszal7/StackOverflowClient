@@ -14,6 +14,7 @@ namespace StackOverflowClient.View
         protected static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         private IRestRepository RestRepository;
         private IDataBaseRepository DataBaseRepository;
+        private Action CreateNewQuestionWindow;
 
         private string selectedSortOrder = "desc";
         private string sortCriteria = "votes";
@@ -192,8 +193,12 @@ namespace StackOverflowClient.View
         #endregion
 
         #region Public methods
-        public MainViewModel(IDataBaseRepository dbRepository, IRestRepository restRepository)
+        public MainViewModel(IDataBaseRepository dbRepository, IRestRepository restRepository, Action createNewQuestionWindow)
         {
+            DataBaseRepository = dbRepository;
+            RestRepository = restRepository;
+            CreateNewQuestionWindow = createNewQuestionWindow;
+
             #region Paging Commands
 
             FirstPage = new RelayCommand(() => { Page = 1; });
@@ -213,10 +218,7 @@ namespace StackOverflowClient.View
             #endregion
 
             Search = new RelayCommand(SearchForTopics);
-            AddTopic = new RelayCommand(AddNewTopic);
-
-            DataBaseRepository = dbRepository;
-            RestRepository = restRepository;
+            AddTopic = new RelayCommand(CreateNewQuestionWindow);
         }
 
         public async void SearchForTopics()
@@ -269,14 +271,6 @@ namespace StackOverflowClient.View
                 int topicsRange = ((Page - 1) % cachedPagesPerLimit) * topicsOnPage;
                 Topics = cachedTopics.GetRange(topicsRange, topicsOnPage);
             }
-        }
-
-        private void AddNewTopic()
-        {
-            var vm = new NewQuestionViewModel(DataBaseRepository);
-            var win = new NewQuestionWindow { DataContext = vm };
-            vm.OnRequestClose += (s, e) => win.Close();
-            win.Show();
         }
 
         private void Sort()
