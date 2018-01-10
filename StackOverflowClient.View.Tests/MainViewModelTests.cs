@@ -1,11 +1,12 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using StackOverflowClient.Common;
 using Moq;
 using System.Linq;
+using MStest = Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace StackOverflowClient.View.Tests
 {
-    [TestClass]
+    [TestFixture]
     public class MainViewModelTests
     {
         public IRestRepository GetTestRestRepository()
@@ -27,7 +28,7 @@ namespace StackOverflowClient.View.Tests
             return restMock.Object;
         }
 
-        [TestMethod]
+        [Test]
         public void SetPaginationTest()
         {
             var restRepository = GetTestRestRepository();
@@ -35,7 +36,7 @@ namespace StackOverflowClient.View.Tests
             var dialogService = GetTestDiagloService();
 
             var vm = new MainViewModel(dataBaseRepository, restRepository, dialogService);
-            PrivateObject obj = new PrivateObject(vm);
+            MStest.PrivateObject obj = new MStest.PrivateObject(vm);
             obj.Invoke("SetPagination");
             // Cannot change Page property value, because its setter invokes another functions which requires e.g. not null Topics
             obj.SetField("page", 1); 
