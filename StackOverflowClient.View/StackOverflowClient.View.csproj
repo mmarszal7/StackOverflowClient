@@ -105,8 +105,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ViewModel\IMainViewModel.cs" />
-    <Compile Include="ViewModel\INewQuestionViewModel.cs" />
+    <Compile Include="ViewModel\Interfaces\IMainViewModel.cs" />
+    <Compile Include="ViewModel\Interfaces\INewQuestionViewModel.cs" />
     <Compile Include="View\Converters\BooleanToActivity.cs" />
     <Compile Include="View\Converters\BooleanToVisability.cs" />
     <Compile Include="View\Converters\LongToShortNumbers.cs" />

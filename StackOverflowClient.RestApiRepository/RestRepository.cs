@@ -14,7 +14,7 @@ namespace StackOverflowClient.RestApiRepository
             AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
         };
 
-        public Response MakeHttpRequest(object parameter)
+        public Response MakeHttpRequest(string parameter)
         {
             using (HttpClient client = new HttpClient(handler, false))
             {
