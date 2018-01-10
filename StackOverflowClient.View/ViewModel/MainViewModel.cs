@@ -4,17 +4,19 @@ using System.Threading.Tasks;
 using System;
 using StackOverflowClient.Common;
 using NLog;
+using Unity;
+using System.Windows;
 
 namespace StackOverflowClient.View
 {
-    public class MainViewModel : BaseViewModel
+    public class MainViewModel : BaseViewModel, IMainViewModel
     {
         #region Fields
 
         protected static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         private IRestRepository RestRepository;
         private IDataBaseRepository DataBaseRepository;
-        private Action CreateNewQuestionWindow;
+        private IDialogService<NewQuestionWindow> NewQuestionView;
 
         private string selectedSortOrder = "desc";
         private string sortCriteria = "votes";
@@ -193,11 +195,12 @@ namespace StackOverflowClient.View
         #endregion
 
         #region Public methods
-        public MainViewModel(IDataBaseRepository dbRepository, IRestRepository restRepository, Action createNewQuestionWindow)
+
+        public MainViewModel(IDataBaseRepository dbRepository, IRestRepository restRepository, IDialogService<NewQuestionWindow> newQuestionView)
         {
             DataBaseRepository = dbRepository;
             RestRepository = restRepository;
-            CreateNewQuestionWindow = createNewQuestionWindow;
+            NewQuestionView = newQuestionView;
 
             #region Paging Commands
 
@@ -218,7 +221,7 @@ namespace StackOverflowClient.View
             #endregion
 
             Search = new RelayCommand(SearchForTopics);
-            AddTopic = new RelayCommand(CreateNewQuestionWindow);
+            AddTopic = new RelayCommand(NewQuestionView.Show);
         }
 
         public async void SearchForTopics()

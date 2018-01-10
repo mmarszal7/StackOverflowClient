@@ -3,42 +3,34 @@ using StackOverflowClient.RestApiRepository;
 using StackOverflowClient.SQLiteRepository;
 using System.Windows;
 using System;
+using Unity;
+using Unity.Lifetime;
 
 namespace StackOverflowClient.View
 {
+    // Composition Root
     public partial class App : Application
     {
-        // Required components
-        IRestRepository restRepository;
-        IDataBaseRepository dbRepository;
-        NewQuestionViewModel questionViewModel; // There should be Interface, but it is not so likely that this Views will hava another ViewModels
-        MainViewModel viewModel;
+        public static IUnityContainer Container;
 
-        // Composition Root
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            dbRepository = new DataBaseRepository();
-            restRepository = new RestRepository();
-            questionViewModel = new NewQuestionViewModel(dbRepository);
-            viewModel = new MainViewModel(dbRepository, restRepository, CreateNewQuestionWindow);
+            Container = new UnityContainer();
+            Container
+                .RegisterType<IDataBaseRepository, DataBaseRepository>(new ContainerControlledLifetimeManager())
+                .RegisterType<IRestRepository, RestRepository>(new ContainerControlledLifetimeManager())
+                .RegisterType(typeof(IDialogService<>), typeof(DialogService<>), new ContainerControlledLifetimeManager())
+                .RegisterType<IMainViewModel, MainViewModel>(new ContainerControlledLifetimeManager())
+                .RegisterType<INewQuestionViewModel, NewQuestionViewModel>(new ContainerControlledLifetimeManager());
 
             RunApplication();
         }
 
         private void RunApplication()
         {
-            Application.Current.MainWindow = new MainWindow(viewModel);
+            Application.Current.MainWindow = Container.Resolve<MainWindow>();
             Application.Current.MainWindow.Show();
         }
-
-        protected void CreateNewQuestionWindow()
-        {
-            var window = new NewQuestionWindow(questionViewModel);
-            questionViewModel.OnRequestClose += (s, e) => window.Close();
-            window.Show();
-        }
-
-
     }
 }

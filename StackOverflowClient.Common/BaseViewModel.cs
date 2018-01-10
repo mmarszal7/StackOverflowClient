@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Linq;
 
-namespace StackOverflowClient.View
+namespace StackOverflowClient.Common
 {
     /// <summary>
     /// Implements INotifyPropertyChanged for all ViewModels

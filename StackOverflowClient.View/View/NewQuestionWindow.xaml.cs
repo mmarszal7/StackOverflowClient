@@ -2,9 +2,9 @@
 
 namespace StackOverflowClient.View
 {
-    public partial class NewQuestionWindow: Window
+    public partial class NewQuestionWindow : Window
     {
-        public NewQuestionWindow(NewQuestionViewModel viewModel)
+        public NewQuestionWindow(INewQuestionViewModel viewModel)
         {
             InitializeComponent();
             this.DataContext = viewModel;

@@ -4,7 +4,7 @@ namespace StackOverflowClient.View
 {
     public partial class MainWindow : Window
     {
-        public MainWindow(MainViewModel mainViewModel)
+        public MainWindow(IMainViewModel mainViewModel)
         {
             InitializeComponent();
             this.DataContext = mainViewModel;

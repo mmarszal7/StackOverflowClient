@@ -3,12 +3,12 @@ using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace StackOverflowClient.View
 {
-    public class NewQuestionViewModel : BaseViewModel, IDataErrorInfo
+    public class NewQuestionViewModel : BaseViewModel, IDataErrorInfo, INewQuestionViewModel
     {
-        public event EventHandler OnRequestClose;
         public RelayCommand AddQuestion { get; set; }
         private IDataBaseRepository DataBaseRepository;
 
@@ -99,11 +99,11 @@ namespace StackOverflowClient.View
 
         public NewQuestionViewModel(IDataBaseRepository dbRepository)
         {
-            AddQuestion = new RelayCommand(AddNewQuestion, (object parameter) => { return IsValid; });
+            AddQuestion = new RelayCommand(param => this.AddNewQuestion((Window)param), (object parameter) => { return IsValid; });
             DataBaseRepository = dbRepository;
         }
 
-        private void AddNewQuestion()
+        private void AddNewQuestion(Window window)
         {
             Random rand = new Random();
             Task task = new Task(() =>
@@ -138,7 +138,9 @@ namespace StackOverflowClient.View
             });
 
             task.Start();
-            OnRequestClose(this, new EventArgs());
+
+            if (window != null)
+                window.Close();
         }
 
         #region Validation
