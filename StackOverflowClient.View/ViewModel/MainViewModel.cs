@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System;
 using StackOverflowClient.Common;
 using NLog;
-using Unity;
-using System.Windows;
+using System;
 
 namespace StackOverflowClient.View
 {
@@ -18,137 +16,41 @@ namespace StackOverflowClient.View
         private IDataBaseRepository DataBaseRepository;
         private IDialogService<NewQuestionWindow> NewQuestionView;
 
-        private string selectedSortOrder = "desc";
-        private string sortCriteria = "votes";
-        private string query = "MVVM";
-        private int page = 1;
-        private int cacheLimit = 10;
-
-        private int totalNumberOfPages = 10;
-        private static readonly int topicsOnPage = 5;
-        private static readonly int topicsPerRequestLimit = 100;
-        private static readonly int cachedPagesPerLimit = (topicsPerRequestLimit / topicsOnPage);
-
-        private bool[] isActive = new bool[5] { true, false, false, false, false };
-        private int[] pagination = new int[5] { 1, 2, 3, 4, 5 };
-        private bool[] paginationVisability = new bool[5] { false, false, false, false, false };
-
         private List<Topic> topics;
-        private List<Topic> cachedTopics;
-        private Dictionary<string, string> sortOrder = new Dictionary<string, string>
-        {
-            { "Ascending", "asc" },
-            { "Descending", "desc" }
-        };
+        private List<Topic> CachedTopics;
+        private int actualPage = 1;
+        private int lastPage = 1;
+        private static readonly int topicsOnPage = 5;
 
         #endregion
 
         #region Properties
 
-        public string SelectedSortOrder
+        public string Query { get; set; } = "MVVM";
+        public string SelectedSortOrder { get; set; } = "desc";
+        public string SelectedSortCriteria { get; set; } = "votes";
+        public string SelectedRepositoryOption { get; set; } = "api";
+        public string[] Pagination { get; set; } = new string[9] { "<<", "<", "1", "2", "3", "4", "5", ">", ">>" };
+
+        public Dictionary<string, string> RepositoryOption { get; } = new Dictionary<string, string>
         {
-            get { return selectedSortOrder; }
-            set
-            {
-                if (selectedSortOrder == sortOrder[value])
-                    return;
-                selectedSortOrder = sortOrder[value];
-                Sort();
-            }
-        }
+            { "Stack Overflow", "api" },
+            { "Local database", "db" }
+        };
 
-        public string SortCriteria
+        public Dictionary<string, string> SortOrder { get; } = new Dictionary<string, string>
         {
-            get { return sortCriteria; }
-            set
-            {
-                if (sortCriteria == value)
-                    return;
-                sortCriteria = value;
-                Sort();
-            }
-        }
+            { "Ascending", "asc" },
+            { "Descending", "desc" }
+        };
 
-        public string Query
+        public Dictionary<string, string> SortCriteria { get; } = new Dictionary<string, string>
         {
-            get { return query; }
-            set
-            {
-                if (query == value)
-                    return;
-                query = value;
-            }
-        }
-
-        public int Page
-        {
-            get { return page; }
-            set
-            {
-                if (page == value && page != 1)
-                    return;
-                page = value;
-                ChangePage();
-                SetPagination();
-                ActivePageButton();
-                RaisePropertyChanged();
-            }
-        }
-
-        public int TotalNumberOfPages
-        {
-            get { return totalNumberOfPages; }
-            set
-            {
-                if (totalNumberOfPages == value)
-                    return;
-                totalNumberOfPages = value;
-
-                PaginationVisability = Enumerable.Repeat(true, 5).ToArray();
-                if (totalNumberOfPages < 5)
-                {
-                    for (int i = 0; i < totalNumberOfPages; i++)
-                        PaginationVisability[4 - i] = false;
-                }
-            }
-        }
-
-        #region Pagination Properties
-        public bool[] IsActive
-        {
-            get { return isActive; }
-            set
-            {
-                if (isActive == value)
-                    return;
-                isActive = value;
-
-            }
-        }
-
-        public int[] Pagination
-        {
-            get { return pagination; }
-            set
-            {
-                if (pagination == value)
-                    return;
-                pagination = value;
-            }
-        }
-
-        public bool[] PaginationVisability
-        {
-            get { return paginationVisability; }
-            set
-            {
-                if (paginationVisability == value)
-                    return;
-                paginationVisability = value;
-            }
-        }
-
-        #endregion
+            { "Votes", "votes" },
+            { "Activity", "activity" },
+            { "Creation", "creation" },
+            { "Relevance", "relevance" }
+        };
 
         public List<Topic> Topics
         {
@@ -162,33 +64,11 @@ namespace StackOverflowClient.View
             }
         }
 
-        public List<Topic> CachedTopics
-        {
-            get { return cachedTopics; }
-            set
-            {
-                if (cachedTopics == value)
-                    return;
-                cachedTopics = value;
-            }
-        }
-
         #endregion
 
         #region Commands
 
-        public RelayCommand FirstPage { get; set; }
-        public RelayCommand LastPage { get; set; }
-        public RelayCommand NextPage { get; set; }
-        public RelayCommand PreviousPage { get; set; }
-        public RelayCommand PaginationSearch { get; set; }
-
-        public RelayCommand PaginationSearch0 { get; set; }
-        public RelayCommand PaginationSearch1 { get; set; }
-        public RelayCommand PaginationSearch2 { get; set; }
-        public RelayCommand PaginationSearch3 { get; set; }
-        public RelayCommand PaginationSearch4 { get; set; }
-
+        public RelayCommand PaginationCommand { get; set; }
         public RelayCommand Search { get; set; }
         public RelayCommand AddTopic { get; set; }
 
@@ -202,159 +82,125 @@ namespace StackOverflowClient.View
             RestRepository = restRepository;
             NewQuestionView = newQuestionView;
 
-            #region Paging Commands
-
-            FirstPage = new RelayCommand(() => { Page = 1; });
-            LastPage = new RelayCommand(() => { Page = totalNumberOfPages; });
-            PaginationSearch0 = new RelayCommand(() => { Page = Pagination[0]; });
-            PaginationSearch1 = new RelayCommand(() => { Page = Pagination[1]; });
-            PaginationSearch2 = new RelayCommand(() => { Page = Pagination[2]; });
-            PaginationSearch3 = new RelayCommand(() => { Page = Pagination[3]; });
-            PaginationSearch4 = new RelayCommand(() => { Page = Pagination[4]; });
-
-            NextPage = new RelayCommand(() => { Page++; },
-                (object parameter) => { return Page + 1 <= totalNumberOfPages; });
-
-            PreviousPage = new RelayCommand(() => { Page--; },
-                (object parameter) => { return Page - 1 > 0; });
-
-            #endregion
-
+            PaginationCommand = new RelayCommand(param => ChangePage((string)param));
             Search = new RelayCommand(SearchForTopics);
             AddTopic = new RelayCommand(NewQuestionView.Show);
         }
 
         public async void SearchForTopics()
         {
-            cacheLimit = (Page + cachedPagesPerLimit - 1);
-            string parameters = $@"page={cacheLimit / cachedPagesPerLimit}&pagesize={topicsPerRequestLimit}&order={selectedSortOrder}&sort={sortCriteria.ToLower()}&intitle={Query}&site=stackoverflow&filter=";
-
-            Task<Response> htmlTask = new Task<Response>(() => RestRepository.MakeHttpRequest(parameters));
-            Task<List<Topic>> sqlTask = new Task<List<Topic>>(() => MakeDatabaseRequest());
-            htmlTask.Start();
-            sqlTask.Start();
-
-            try
+            if(SelectedRepositoryOption == "api")
             {
-               CachedTopics = (await htmlTask).TopicList;
+                string parameters = $@"page={1}&pagesize={topicsOnPage}&order={SelectedSortOrder}&sort={SelectedSortCriteria}&intitle={Query}&site=stackoverflow&filter=";
+                Task<Response> htmlTask = new Task<Response>(() => RestRepository.MakeHttpRequest(parameters));
+                htmlTask.Start();
+                CachedTopics?.Clear();
+                try
+                {
+                    CachedTopics = (await htmlTask).TopicList;
+                }
+                catch (System.AggregateException)
+                {
+                    Query = "Błąd 404";
+                    RaisePropertyChanged();
+                    return;
+                }
             }
-            catch (System.AggregateException)
+            else
             {
-                Query = "Błąd 404";
-                RaisePropertyChanged();
-                return;
+                Task<List<Topic>> sqlTask = new Task<List<Topic>>(() => DataBaseRepository.GetTopics(Query));
+                sqlTask.Start();
+                CachedTopics?.Clear();
+                CachedTopics = (await sqlTask);
             }
-            CachedTopics.AddRange(await sqlTask);
 
-            TotalNumberOfPages = (await htmlTask).NumberOfTopics / topicsOnPage;
-            Topics = cachedTopics.Count == topicsOnPage ? cachedTopics.GetRange(0, topicsOnPage) : null;
+            lastPage = CachedTopics.Count / topicsOnPage;
             Sort();
-        }
-
-        public List<Topic> MakeDatabaseRequest()
-        {
-            List<Topic> response = new List<Topic>();
-            Random rand = new Random();
-
-            response = DataBaseRepository.GetTopics(Query);
-
-            return response;
         }
 
         #endregion
 
         #region Private methods
 
-        private void ChangePage()
+        private void ChangePage(string option)
         {
-            if (page > cacheLimit || page < cacheLimit - cachedPagesPerLimit)
-                SearchForTopics();
-            else
+            switch (option)
             {
-                int topicsRange = ((Page - 1) % cachedPagesPerLimit) * topicsOnPage;
-                Topics = cachedTopics.GetRange(topicsRange, topicsOnPage);
+                case ">>":
+                    actualPage = lastPage;
+                    break;
+                case "<<":
+                    actualPage = 1;
+                    break;
+                case ">":
+                    if (actualPage < lastPage)
+                        actualPage++;
+                    break;
+                case "<":
+                    if (actualPage > 1)
+                        actualPage--;
+                    break;
+                default:
+                    actualPage = int.Parse(option);
+                    break;
             }
+
+            int[] temp;
+            if (actualPage <= 3)
+                temp = Enumerable.Range(1, 5).ToArray();
+            else if (lastPage - actualPage < 3)
+                temp = Enumerable.Range(lastPage - 5, lastPage).ToArray();
+            else
+                temp = Enumerable.Range(actualPage - 2, actualPage + 2).ToArray();
+
+            for (int i = 2; i < 7; i++)
+                Pagination[i] = temp[i - 2].ToString();
+
+            if(CachedTopics.Count >= actualPage * topicsOnPage)
+                Topics = CachedTopics.GetRange((actualPage-1)*topicsOnPage , actualPage* topicsOnPage);
+            else
+                Topics = CachedTopics.GetRange((actualPage-1)* topicsOnPage, CachedTopics.Count);
         }
 
         private void Sort()
         {
-            if (selectedSortOrder == "desc")
+            if (SelectedSortOrder == "desc")
             {
-                switch (sortCriteria)
+                switch (SelectedSortCriteria)
                 {
-                    case "Activity":
-                        cachedTopics = cachedTopics.OrderByDescending(p => p.ViewCount).ToList();
+                    case "activity":
+                        CachedTopics = CachedTopics.OrderByDescending(p => p.ViewCount).ToList();
                         break;
-                    case "Votes":
-                        cachedTopics = cachedTopics.OrderByDescending(p => p.VoteCount).ToList();
+                    case "votes":
+                        CachedTopics = CachedTopics.OrderByDescending(p => p.VoteCount).ToList();
                         break;
-                    case "Creation":
-                        cachedTopics = cachedTopics.OrderByDescending(p => p.CreationDate).ToList();
+                    case "creation":
+                        CachedTopics = CachedTopics.OrderByDescending(p => p.CreationDate).ToList();
                         break;
-                    case "Relevance":
-                        cachedTopics = cachedTopics.OrderByDescending(p => p.AnswerCount).ToList();
+                    case "relevance":
+                        CachedTopics = CachedTopics.OrderByDescending(p => p.AnswerCount).ToList();
                         break;
                 }
             }
             else
             {
-                switch (sortCriteria)
+                switch (SelectedSortOrder)
                 {
-                    case "Activity":
-                        cachedTopics = cachedTopics.OrderBy(p => p.ViewCount).ToList();
+                    case "activity":
+                        CachedTopics = CachedTopics.OrderBy(p => p.ViewCount).ToList();
                         break;
-                    case "Votes":
-                        cachedTopics = cachedTopics.OrderBy(p => p.VoteCount).ToList();
+                    case "votes":
+                        CachedTopics = CachedTopics.OrderBy(p => p.VoteCount).ToList();
                         break;
-                    case "Creation":
-                        cachedTopics = cachedTopics.OrderBy(p => p.CreationDate).ToList();
+                    case "creation":
+                        CachedTopics = CachedTopics.OrderBy(p => p.CreationDate).ToList();
                         break;
-                    case "Relevance":
-                        cachedTopics = cachedTopics.OrderBy(p => p.AnswerCount).ToList();
+                    case "relevance":
+                        CachedTopics = CachedTopics.OrderBy(p => p.AnswerCount).ToList();
                         break;
                 }
             }
-
-            ChangePage();
-            RaisePropertyChanged();
-        }
-
-        private void SetPagination()
-        {
-            if (page < 3)
-            {
-                Pagination = Enumerable.Range(1, 5).ToArray();
-            }
-            else if (page > totalNumberOfPages - 2)
-            {
-                Pagination = Enumerable.Range(totalNumberOfPages - 4, totalNumberOfPages).ToArray();
-            }
-            else
-            {
-                Pagination = Enumerable.Range(page - 2, page + 2).ToArray();
-            }
-        }
-
-        private void ActivePageButton()
-        {
-            if (page < 3)
-            {
-                if (page == 1)
-                    IsActive = new bool[5] { true, false, false, false, false };
-                else
-                    IsActive = new bool[5] { false, true, false, false, false };
-            }
-            else if (page > totalNumberOfPages - 2)
-            {
-                if (page == totalNumberOfPages)
-                    IsActive = new bool[5] { false, false, false, false, true };
-                else
-                    IsActive = new bool[5] { false, false, false, true, false };
-            }
-            else
-            {
-                IsActive = new bool[5] { false, false, true, false, false };
-            }
+            ChangePage("<<");
         }
 
         #endregion

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2009
+VisualStudioVersion = 15.0.27130.2020
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StackOverflowClient.View", "StackOverflowClient.View\StackOverflowClient.View.csproj", "{6E5471C7-AAAB-49F0-98B1-54600EE94D82}"
 EndProject
@@ -18,6 +18,10 @@ EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "StackOverflowClient.Setup", "StackOverflowClient.Setup\StackOverflowClient.Setup.vdproj", "{8CD0C19B-28A8-4839-9E0C-4C5BAE1E3374}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StackOverflowClient.View.Tests", "StackOverflowClient.View.Tests\StackOverflowClient.View.Tests.csproj", "{DEC01417-5D43-4251-A8D0-3E23A0A8EECC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApplicationView", "ApplicationView", "{465E5B52-7B7E-4E8E-ACEA-B8BD731CD3A5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{1FF80AB8-0986-47C3-AD0E-345FC983482D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -52,8 +56,11 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{6E5471C7-AAAB-49F0-98B1-54600EE94D82} = {465E5B52-7B7E-4E8E-ACEA-B8BD731CD3A5}
+		{7100DB59-9855-46DC-90F7-B2A0A461F6A7} = {1FF80AB8-0986-47C3-AD0E-345FC983482D}
 		{CEFCBABD-C252-4889-A132-A826622C1664} = {5F070D8B-7BB3-4541-B788-1F1D052AA113}
 		{EE82E712-42F0-49FE-94D1-73A23F5B4A2E} = {5F070D8B-7BB3-4541-B788-1F1D052AA113}
+		{8CD0C19B-28A8-4839-9E0C-4C5BAE1E3374} = {465E5B52-7B7E-4E8E-ACEA-B8BD731CD3A5}
 		{DEC01417-5D43-4251-A8D0-3E23A0A8EECC} = {2703E2F9-0CCE-413F-9970-7533DDB498C2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution

@@ -18,6 +18,10 @@ namespace StackOverflowClient.Common
         {
         }
 
+        public RelayCommand(Action<object> execute) : this(execute, null)
+        {
+        }
+
         public RelayCommand(Action execute, Predicate<object> canExecute)
         {
             _execute = execute ?? throw new ArgumentNullException("execute");
