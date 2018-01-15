@@ -5,6 +5,7 @@ using System.Windows;
 using System;
 using Unity;
 using Unity.Lifetime;
+using StackOverflowClient.WCFserviceRepository;
 
 namespace StackOverflowClient.View
 {
@@ -19,7 +20,8 @@ namespace StackOverflowClient.View
             Container = new UnityContainer();
             Container
                 .RegisterType<IDataBaseRepository, DataBaseRepository>(new ContainerControlledLifetimeManager())
-                .RegisterType<IRestRepository, RestRepository>(new ContainerControlledLifetimeManager())
+                //.RegisterType<IRestRepository, RestRepository>(new ContainerControlledLifetimeManager())
+                .RegisterType<IRestRepository, WCFrepository>(new ContainerControlledLifetimeManager())
                 .RegisterType(typeof(IDialogService<>), typeof(DialogService<>), new ContainerControlledLifetimeManager())
                 .RegisterType<IMainViewModel, MainViewModel>(new ContainerControlledLifetimeManager())
                 .RegisterType<INewQuestionViewModel, NewQuestionViewModel>(new ContainerControlledLifetimeManager());

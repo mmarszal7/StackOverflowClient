@@ -92,7 +92,7 @@ namespace StackOverflowClient.View
             if (SelectedRepositoryOption == "api")
             {
                 string parameters = $@"page={1}&pagesize={100}&order={SelectedSortOrder}&sort={SelectedSortCriteria}&intitle={Query}&site=stackoverflow&filter=";
-                Task<Response> htmlTask = new Task<Response>(() => RestRepository.MakeHttpRequest(parameters));
+                Task<Response> htmlTask = new Task<Response>(() => RestRepository.MakeRequest(parameters));
                 htmlTask.Start();
                 CachedTopics?.Clear();
                 try

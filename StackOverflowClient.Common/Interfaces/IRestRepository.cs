@@ -4,6 +4,6 @@ namespace StackOverflowClient.Common
 {
     public interface IRestRepository
     {
-        Response MakeHttpRequest(string parameter);
+        Response MakeRequest(string parameter);
     }
 }

@@ -173,7 +173,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -195,6 +197,10 @@
     <ProjectReference Include="..\StackOverflowClient.SQLiteRepository\StackOverflowClient.SQLiteRepository.csproj">
       <Project>{ee82e712-42f0-49fe-94d1-73a23f5b4a2e}</Project>
       <Name>StackOverflowClient.SQLiteRepository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\StackOverflowClient.WCFrepository\StackOverflowClient.WCFserviceRepository.csproj">
+      <Project>{26FADF87-55D7-4F59-AD76-961621C849D7}</Project>
+      <Name>StackOverflowClient.WCFserviceRepository</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
