@@ -107,6 +107,8 @@
     </ApplicationDefinition>
     <Compile Include="ViewModel\Interfaces\IMainViewModel.cs" />
     <Compile Include="ViewModel\Interfaces\INewQuestionViewModel.cs" />
+    <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\NewQuestionViewModel.cs" />
     <Compile Include="View\Converters\BooleanToActivity.cs" />
     <Compile Include="View\Converters\BooleanToVisability.cs" />
     <Compile Include="View\Converters\LongToShortNumbers.cs" />
@@ -121,7 +123,6 @@
     <Compile Include="View\Controls\SingleQuestion.xaml.cs">
       <DependentUpon>SingleQuestion.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\NewQuestionViewModel.cs" />
     <Compile Include="View\NewQuestionWindow.xaml.cs">
       <DependentUpon>NewQuestionWindow.xaml</DependentUpon>
     </Compile>
@@ -145,7 +146,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

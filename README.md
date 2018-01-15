@@ -4,6 +4,8 @@ This is a complex C# solution/environment for testing new ideas, features, frame
 Solution is based on WPF/MVVM application with Unity container which provides Dependency Injection.
 This approach allows you to replace almost any solution component with another one that implements specified interface.
 
+**This is over complicated solution with great emphasis on modularity which allows to test lot of different approaches (e.g. testing few MVVM frameworks in one application)*
+
 # Frameworks and solution used in project:
 ##### **1. Core/Common:**
 * Unity 

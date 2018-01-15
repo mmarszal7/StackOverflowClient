@@ -30,7 +30,7 @@ namespace StackOverflowClient.View
         public string SelectedSortOrder { get; set; } = "desc";
         public string SelectedSortCriteria { get; set; } = "votes";
         public string SelectedRepositoryOption { get; set; } = "api";
-        public string[] Pagination { get; set; } = new string[9] { "<<", "<", "1", "2", "3", "4", "5", ">", ">>" };
+        public List<string> Pagination { get; set; } = new List<string>() { "<<", "<", "1", "2", "3", "4", "5", ">", ">>" };
 
         public Dictionary<string, string> RepositoryOption { get; } = new Dictionary<string, string>
         {
@@ -87,11 +87,11 @@ namespace StackOverflowClient.View
             AddTopic = new RelayCommand(NewQuestionView.Show);
         }
 
-        public async void SearchForTopics()
+        private async void SearchForTopics()
         {
-            if(SelectedRepositoryOption == "api")
+            if (SelectedRepositoryOption == "api")
             {
-                string parameters = $@"page={1}&pagesize={topicsOnPage}&order={SelectedSortOrder}&sort={SelectedSortCriteria}&intitle={Query}&site=stackoverflow&filter=";
+                string parameters = $@"page={1}&pagesize={100}&order={SelectedSortOrder}&sort={SelectedSortCriteria}&intitle={Query}&site=stackoverflow&filter=";
                 Task<Response> htmlTask = new Task<Response>(() => RestRepository.MakeHttpRequest(parameters));
                 htmlTask.Start();
                 CachedTopics?.Clear();
@@ -114,7 +114,7 @@ namespace StackOverflowClient.View
                 CachedTopics = (await sqlTask);
             }
 
-            lastPage = CachedTopics.Count / topicsOnPage;
+            lastPage = (int)Math.Ceiling((double)CachedTopics.Count / topicsOnPage);
             Sort();
         }
 
@@ -141,25 +141,27 @@ namespace StackOverflowClient.View
                         actualPage--;
                     break;
                 default:
-                    actualPage = int.Parse(option);
+                    if (int.Parse(option) > 0 && int.Parse(option) < lastPage)
+                        actualPage = int.Parse(option);
+                    else return;
                     break;
             }
 
-            int[] temp;
+            List<string> temp;
             if (actualPage <= 3)
-                temp = Enumerable.Range(1, 5).ToArray();
+                temp = Enumerable.Range(1, 5).ToList().ConvertAll(n => n.ToString());
             else if (lastPage - actualPage < 3)
-                temp = Enumerable.Range(lastPage - 5, lastPage).ToArray();
+                temp = Enumerable.Range(lastPage - 4, 5).ToList().ConvertAll(n => n.ToString());
             else
-                temp = Enumerable.Range(actualPage - 2, actualPage + 2).ToArray();
+                temp = Enumerable.Range(actualPage - 2, 5).ToList().ConvertAll(n => n.ToString());
 
-            for (int i = 2; i < 7; i++)
-                Pagination[i] = temp[i - 2].ToString();
+            Pagination = new List<string>() { "<<", "<", ">", ">>" };
+            Pagination.InsertRange(2, temp);
 
-            if(CachedTopics.Count >= actualPage * topicsOnPage)
-                Topics = CachedTopics.GetRange((actualPage-1)*topicsOnPage , actualPage* topicsOnPage);
+            if (CachedTopics.Count >= actualPage * topicsOnPage)
+                Topics = CachedTopics.GetRange((actualPage - 1) * topicsOnPage, topicsOnPage);
             else
-                Topics = CachedTopics.GetRange((actualPage-1)* topicsOnPage, CachedTopics.Count);
+                Topics = CachedTopics.GetRange((actualPage - 1) * topicsOnPage, CachedTopics.Count % topicsOnPage);
         }
 
         private void Sort()

@@ -9,9 +9,8 @@ namespace StackOverflowClient.View
         RelayCommand AddTopic { get; set; }
         RelayCommand Search { get; set; }
         RelayCommand PaginationCommand { get; set; }
-        string[] Pagination { get; set; }
+        List<string> Pagination { get; set; }
         string Query { get; set; }
-        void SearchForTopics();
         
         Dictionary<string, string> RepositoryOption { get; }
         Dictionary<string, string> SortCriteria { get; }
