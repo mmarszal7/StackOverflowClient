@@ -143,8 +143,6 @@ namespace StackOverflowClient.View
                 window.Close();
         }
 
-        #region Validation
-
         public string GetValidationError(string propertyName)
         {
             string result = null;
@@ -180,7 +178,5 @@ namespace StackOverflowClient.View
 
             return result;
         }
-        #endregion
-
     }
 }

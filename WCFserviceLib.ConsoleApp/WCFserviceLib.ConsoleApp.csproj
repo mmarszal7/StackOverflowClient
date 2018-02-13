@@ -55,6 +55,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\WCFserviceLib\WCFserviceLib.csproj">
       <Project>{1bda5984-0a8b-45f5-92bc-5afb828c67a8}</Project>
       <Name>WCFserviceLib</Name>

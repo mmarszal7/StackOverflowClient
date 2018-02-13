@@ -9,18 +9,16 @@ namespace WCFserviceLib
     public class WCFservice : IWCFservice
     {
         protected static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+        private readonly string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\", "sample.json");
 
         public Response MakeRequest(string parameter)
         {
-            string path = AppDomain.CurrentDomain.BaseDirectory + "sample.json";
-
             using (StreamReader r = new StreamReader(path))
             {
                 try
                 {
                     string responseString = r.ReadToEnd();
-                    var responseObject = JsonConvert.DeserializeObject<Response>(responseString);
-                    return responseObject;
+                    return JsonConvert.DeserializeObject<Response>(responseString);
                 }
                 catch (Exception e)
                 {

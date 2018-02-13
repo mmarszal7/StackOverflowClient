@@ -3,16 +3,33 @@ using StackOverflowClient.Common;
 using Moq;
 using System.Linq;
 using MStest = Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace StackOverflowClient.View.Tests
 {
     [TestFixture]
     public class MainViewModelTests
     {
+        #region Mockups
+
+        public Response MakeRequest()
+        {
+            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\", "sample.json");
+
+            using (StreamReader r = new StreamReader(path))
+            {
+                string responseString = r.ReadToEnd();
+                var responseObject = JsonConvert.DeserializeObject<Response>(responseString);
+                return responseObject;
+            }
+        }
+
         public IRestRepository GetTestRestRepository()
         {
             var restMock = new Mock<IRestRepository>();
-            restMock.Setup(r => r.MakeHttpRequest(It.IsAny<string>())).Returns(It.IsAny<Response>());
+            restMock.Setup(r => r.MakeRequest(It.IsAny<string>())).Returns(MakeRequest());
             return restMock.Object;
         }
 
@@ -28,22 +45,34 @@ namespace StackOverflowClient.View.Tests
             return restMock.Object;
         }
 
-        [Test]
-        public void SetPaginationTest()
+        public MainViewModel GetViewModel()
         {
             var restRepository = GetTestRestRepository();
             var dataBaseRepository = GetTestDataBaseRepository();
             var dialogService = GetTestDiagloService();
 
-            var vm = new MainViewModel(dataBaseRepository, restRepository, dialogService);
-            MStest.PrivateObject obj = new MStest.PrivateObject(vm);
-            obj.Invoke("SetPagination");
-            // Cannot change Page property value, because its setter invokes another functions which requires e.g. not null Topics
-            obj.SetField("page", 1); 
+            return new MainViewModel(dataBaseRepository, restRepository, dialogService);
+        }
 
-            Assert.IsNotNull(vm.Pagination);
-            Assert.AreEqual(5, vm.Pagination.ToArray().Count());
-            CollectionAssert.AreEqual(Enumerable.Range(1, 5).ToArray(), vm.Pagination);
+        #endregion
+
+        [Test]
+        public void SearchForTopics()
+        {
+            var vm = GetViewModel();
+            vm.Search.Execute(null);
+
+            Assert.AreEqual(5, vm.Topics.Count);
+        }
+
+        [Test]
+        public void SetPaginationTest()
+        {
+            var vm = GetViewModel();
+            vm.Search.Execute(null);
+            vm.PaginationCommand.Execute("5");
+
+            CollectionAssert.AreEqual(Enumerable.Range(3, 8).ToArray(), vm.Pagination);
         }
     }
 }

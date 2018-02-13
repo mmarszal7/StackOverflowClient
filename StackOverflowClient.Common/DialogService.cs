@@ -16,6 +16,7 @@ namespace StackOverflowClient.Common
         public void ShowUnique()
         {
             WindowInstance = UnityContainer.Resolve<T>();
+			WindowInstance.Show();
         }
 
         public void Show()
