@@ -1,12 +1,12 @@
-﻿using StackOverflowClient.Common;
-using System;
-using System.ComponentModel;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
-
-namespace StackOverflowClient.View
+﻿namespace StackOverflowClient.View
 {
+    using StackOverflowClient.Common;
+    using System;
+    using System.ComponentModel;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using System.Windows;
+
     public class NewQuestionViewModel : BaseViewModel, IDataErrorInfo, INewQuestionViewModel
     {
         public RelayCommand AddQuestion { get; set; }

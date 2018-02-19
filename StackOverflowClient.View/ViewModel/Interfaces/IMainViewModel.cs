@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using StackOverflowClient.Common;
-
-namespace StackOverflowClient.View
+﻿namespace StackOverflowClient.View
 {
+    using System.Collections.Generic;
+    using StackOverflowClient.Common;
+
     public interface IMainViewModel
     {
         List<Topic> Topics { get; set; }

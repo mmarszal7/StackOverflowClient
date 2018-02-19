@@ -1,9 +1,9 @@
-﻿using StackOverflowClient.Common;
-using System.Data.Entity;
-using System.Data.SQLite;
-
-namespace StackOverflowClient.SQLiteRepository
+﻿namespace StackOverflowClient.SQLiteRepository
 {
+    using StackOverflowClient.Common;
+    using System.Data.Entity;
+    using System.Data.SQLite;
+
     public class DataBaseContext : DbContext
     {
         private const string connectionString = "Data Source=./StackOverflowDB.db;Version=3";

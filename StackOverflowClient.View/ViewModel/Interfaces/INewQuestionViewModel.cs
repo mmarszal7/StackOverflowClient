@@ -1,7 +1,7 @@
-﻿using StackOverflowClient.Common;
-
-namespace StackOverflowClient.View
+﻿namespace StackOverflowClient.View
 {
+    using StackOverflowClient.Common;
+
     public interface INewQuestionViewModel
     {
         string this[string propertyName] { get; }

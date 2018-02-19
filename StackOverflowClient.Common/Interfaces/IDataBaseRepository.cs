@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace StackOverflowClient.Common
+﻿namespace StackOverflowClient.Common
 {
+    using System.Collections.Generic;
+
     public interface IDataBaseRepository
     {
         void AddNewTopic(Topic newTopic);

@@ -53,10 +53,6 @@
       <Project>{7100db59-9855-46dc-90f7-b2a0a461f6a7}</Project>
       <Name>StackOverflowClient.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WCFserviceLib.Client\WCFserviceLib.Client.csproj">
-      <Project>{12be88ce-b24c-4613-808c-a4476128c6bc}</Project>
-      <Name>WCFserviceLib.Client</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />

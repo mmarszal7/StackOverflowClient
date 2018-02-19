@@ -1,9 +1,9 @@
-﻿using Newtonsoft.Json;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace StackOverflowClient.Common
+﻿namespace StackOverflowClient.Common
 {
+    using Newtonsoft.Json;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public class User
     {
         [JsonProperty("display_name")]

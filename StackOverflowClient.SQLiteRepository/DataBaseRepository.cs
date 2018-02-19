@@ -1,10 +1,10 @@
-﻿using StackOverflowClient.Common;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-
-namespace StackOverflowClient.SQLiteRepository
+﻿namespace StackOverflowClient.SQLiteRepository
 {
+    using StackOverflowClient.Common;
+    using System.Collections.Generic;
+    using System.Data.Entity;
+    using System.Linq;
+
     public class DataBaseRepository : IDataBaseRepository
     {
         public void AddNewTopic(Topic newTopic)

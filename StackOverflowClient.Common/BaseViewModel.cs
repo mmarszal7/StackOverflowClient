@@ -1,11 +1,8 @@
-﻿using System.ComponentModel;
-using System.Linq;
-
-namespace StackOverflowClient.Common
+﻿namespace StackOverflowClient.Common
 {
-    /// <summary>
-    /// Implements INotifyPropertyChanged for all ViewModels
-    /// </summary>
+    using System.ComponentModel;
+    using System.Linq;
+
     public abstract class BaseViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;

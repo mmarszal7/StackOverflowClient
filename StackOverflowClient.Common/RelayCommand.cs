@@ -1,11 +1,7 @@
-﻿using System;
-using System.Windows.Input;
-
-namespace StackOverflowClient.Common
+﻿namespace StackOverflowClient.Common
 {
-    /// <summary>
-    /// Taken from http://msdn.microsoft.com/en-us/magazine/dd419663.aspx#id0090030
-    /// </summary>
+    using System;
+    using System.Windows.Input;
 
     public class RelayCommand : ICommand
     {

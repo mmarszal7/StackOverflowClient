@@ -1,15 +1,14 @@
-﻿using StackOverflowClient.Common;
-using StackOverflowClient.RestApiRepository;
-using StackOverflowClient.SQLiteRepository;
-using System.Windows;
-using System;
-using Unity;
-using Unity.Lifetime;
-using StackOverflowClient.WCFserviceRepository;
-
-namespace StackOverflowClient.View
+﻿namespace StackOverflowClient.View
 {
-    // Composition Root
+    using StackOverflowClient.Common;
+    using StackOverflowClient.RestApiRepository;
+    using StackOverflowClient.SQLiteRepository;
+    using System.Windows;
+    using System;
+    using Unity;
+    using Unity.Lifetime;
+    using StackOverflowClient.WCFserviceRepository;
+
     public partial class App : Application
     {
         public static IUnityContainer Container;

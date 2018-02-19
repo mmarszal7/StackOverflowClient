@@ -1,14 +1,14 @@
-﻿using NUnit.Framework;
-using StackOverflowClient.Common;
-using Moq;
-using System.Linq;
-using MStest = Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.IO;
-using Newtonsoft.Json;
-
-namespace StackOverflowClient.View.Tests
+﻿namespace StackOverflowClient.View.Tests
 {
+    using NUnit.Framework;
+    using StackOverflowClient.Common;
+    using Moq;
+    using System.Linq;
+    using MStest = Microsoft.VisualStudio.TestTools.UnitTesting;
+    using System;
+    using System.IO;
+    using Newtonsoft.Json;
+
     [TestFixture]
     public class MainViewModelTests
     {

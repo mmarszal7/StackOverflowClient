@@ -1,8 +1,8 @@
-﻿using Newtonsoft.Json;
-using System.Collections.Generic;
-
-namespace StackOverflowClient.Common
+﻿namespace StackOverflowClient.Common
 {
+    using Newtonsoft.Json;
+    using System.Collections.Generic;
+
     public class Response
     {
         [JsonProperty("total")]

@@ -1,8 +1,8 @@
-﻿using System.Windows;
-using Unity;
-
-namespace StackOverflowClient.Common
+﻿namespace StackOverflowClient.Common
 {
+    using System.Windows;
+    using Unity;
+
     public class DialogService<T> : IDialogService<T> where T : Window
     {
         private readonly IUnityContainer UnityContainer;

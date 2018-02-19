@@ -1,10 +1,10 @@
-﻿using Newtonsoft.Json;
-using StackOverflowClient.Common;
-using System.Net;
-using System.Net.Http;
-
-namespace StackOverflowClient.RestApiRepository
+﻿namespace StackOverflowClient.RestApiRepository
 {
+    using Newtonsoft.Json;
+    using StackOverflowClient.Common;
+    using System.Net;
+    using System.Net.Http;
+
     public class RestRepository : IRestRepository
     {
         private string uri = "https://api.stackexchange.com/2.2/search?";

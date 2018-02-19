@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using StackOverflowClient.Common;
-using NLog;
-using System;
-
-namespace StackOverflowClient.View
+﻿namespace StackOverflowClient.View
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using StackOverflowClient.Common;
+    using NLog;
+    using System;
+
     public class MainViewModel : BaseViewModel, IMainViewModel
     {
         #region Fields, Properties and Commands
