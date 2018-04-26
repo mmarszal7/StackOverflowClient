@@ -1,4 +1,4 @@
-﻿namespace StackOverflowClient.Common
+﻿namespace StackOverflowClient.ViewModel
 {
     using System.ComponentModel;
     using System.Linq;

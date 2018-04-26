@@ -8,16 +8,23 @@
     using System;
     using System.IO;
     using Newtonsoft.Json;
+    using StackOverflowClient.ViewModel;
 
     [TestFixture]
     public class MainViewModelTests
     {
-        #region Mockups
+        private Mock<IDataBaseRepository> DbMock = new Mock<IDataBaseRepository>();
+        private Mock<IRestRepository> RestMock = new Mock<IRestRepository>();
+        private Mock<NewQuestionWindow> NewQuestionWindowMock = new Mock<NewQuestionWindow>();
+
+        public MainViewModelTests()
+        {
+            RestMock.Setup(r => r.MakeRequest(It.IsAny<string>())).Returns(MakeRequest());
+        }
 
         public Response MakeRequest()
         {
             string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\", "sample.json");
-
             using (StreamReader r = new StreamReader(path))
             {
                 string responseString = r.ReadToEnd();
@@ -26,40 +33,10 @@
             }
         }
 
-        public IRestRepository GetTestRestRepository()
-        {
-            var restMock = new Mock<IRestRepository>();
-            restMock.Setup(r => r.MakeRequest(It.IsAny<string>())).Returns(MakeRequest());
-            return restMock.Object;
-        }
-
-        public IDataBaseRepository GetTestDataBaseRepository()
-        {
-            var restMock = new Mock<IDataBaseRepository>();
-            return restMock.Object;
-        }
-
-        public IDialogService<NewQuestionWindow> GetTestDiagloService()
-        {
-            var restMock = new Mock<IDialogService<NewQuestionWindow>>();
-            return restMock.Object;
-        }
-
-        public MainViewModel GetViewModel()
-        {
-            var restRepository = GetTestRestRepository();
-            var dataBaseRepository = GetTestDataBaseRepository();
-            var dialogService = GetTestDiagloService();
-
-            return new MainViewModel(dataBaseRepository, restRepository, dialogService);
-        }
-
-        #endregion
-
         [Test]
         public void SearchForTopics()
         {
-            var vm = GetViewModel();
+            var vm = new MainViewModel(DbMock.Object, RestMock.Object, NewQuestionWindowMock.Object);
             vm.Search.Execute(null);
 
             Assert.AreEqual(5, vm.Topics.Count);
@@ -68,7 +45,7 @@
         [Test]
         public void SetPaginationTest()
         {
-            var vm = GetViewModel();
+            var vm = new MainViewModel(DbMock.Object, RestMock.Object, NewQuestionWindowMock.Object);
             vm.Search.Execute(null);
             vm.PaginationCommand.Execute("5");
 

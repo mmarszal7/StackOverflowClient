@@ -1,13 +1,14 @@
-﻿namespace StackOverflowClient.View
+﻿namespace StackOverflowClient.ViewModel
 {
     using StackOverflowClient.Common;
+    using StackOverflowClient.Helpers;
     using System;
     using System.ComponentModel;
     using System.Linq;
     using System.Threading.Tasks;
     using System.Windows;
 
-    public class NewQuestionViewModel : BaseViewModel, IDataErrorInfo, INewQuestionViewModel
+    public class NewQuestionViewModel : BaseViewModel, IDataErrorInfo
     {
         public RelayCommand AddQuestion { get; set; }
         private IDataBaseRepository DataBaseRepository;

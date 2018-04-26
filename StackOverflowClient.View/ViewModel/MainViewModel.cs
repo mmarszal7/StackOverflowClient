@@ -1,4 +1,4 @@
-﻿namespace StackOverflowClient.View
+﻿namespace StackOverflowClient.ViewModel
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -6,15 +6,17 @@
     using StackOverflowClient.Common;
     using NLog;
     using System;
+    using StackOverflowClient.View;
+    using StackOverflowClient.Helpers;
 
-    public class MainViewModel : BaseViewModel, IMainViewModel
+    public class MainViewModel : BaseViewModel
     {
         #region Fields, Properties and Commands
 
         protected static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         private IRestRepository RestRepository;
         private IDataBaseRepository DataBaseRepository;
-        private IDialogService<NewQuestionWindow> NewQuestionView;
+        private NewQuestionWindow NewQuestionView;
         private List<Topic> topics;
         private List<Topic> CachedTopics;
         private int actualPage = 1;
@@ -63,7 +65,7 @@
 
         #region Public methods
 
-        public MainViewModel(IDataBaseRepository dbRepository, IRestRepository restRepository, IDialogService<NewQuestionWindow> newQuestionView)
+        public MainViewModel(IDataBaseRepository dbRepository, IRestRepository restRepository, NewQuestionWindow newQuestionView)
         {
             DataBaseRepository = dbRepository;
             RestRepository = restRepository;

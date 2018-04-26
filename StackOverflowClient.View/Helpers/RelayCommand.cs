@@ -1,4 +1,4 @@
-﻿namespace StackOverflowClient.Common
+﻿namespace StackOverflowClient.Helpers
 {
     using System;
     using System.Windows.Input;
