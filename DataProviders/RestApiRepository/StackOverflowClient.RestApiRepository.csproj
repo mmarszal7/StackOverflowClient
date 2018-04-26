@@ -35,7 +35,7 @@
       <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\packages\NLog.4.4.12\lib\net45\NLog.dll</HintPath>
+      <HintPath>..\..\packages\NLog.4.4.12\lib\net45\NLog.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -51,13 +51,13 @@
     <Compile Include="RestRepository.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\StackOverflowClient.Common\StackOverflowClient.Common.csproj">
-      <Project>{7100db59-9855-46dc-90f7-b2a0a461f6a7}</Project>
-      <Name>StackOverflowClient.Common</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\..\Tools\Common\StackOverflowClient.Common.csproj">
+      <Project>{7100DB59-9855-46DC-90F7-B2A0A461F6A7}</Project>
+      <Name>StackOverflowClient.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
