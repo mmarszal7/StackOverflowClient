@@ -15,7 +15,5 @@ This approach allows you to replace components with another one that implements 
 * NUnit + Moq
 	
 ##### **2. To do:**
-- WCF Service (?)
 - MVVM Frameworks (Catel, MVVMLight, Caliburn?)
 - Micro ORMs (Dapper, NHibernate)
-- Continous Integration (TeamCity, Jenkins)
