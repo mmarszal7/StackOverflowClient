@@ -54,8 +54,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Tools\Common\StackOverflowClient.Common.csproj">
-      <Project>{7100DB59-9855-46DC-90F7-B2A0A461F6A7}</Project>
+    <ProjectReference Include="..\..\Common\Common\StackOverflowClient.Common.csproj">
+      <Project>{7100db59-9855-46dc-90f7-b2a0a461f6a7}</Project>
       <Name>StackOverflowClient.Common</Name>
     </ProjectReference>
   </ItemGroup>

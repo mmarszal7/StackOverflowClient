@@ -71,10 +71,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Tools\Common\StackOverflowClient.Common.csproj">
-      <Project>{7100db59-9855-46dc-90f7-b2a0a461f6a7}</Project>
-      <Name>StackOverflowClient.Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\ApplicationView\View\StackOverflowClient.View.csproj">
       <Project>{6e5471c7-aaab-49f0-98b1-54600ee94d82}</Project>
       <Name>StackOverflowClient.View</Name>

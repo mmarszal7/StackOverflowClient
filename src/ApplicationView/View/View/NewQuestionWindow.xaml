@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" x:Name="ThisWindow"
-        Title="NewQuestionWindow" Height="300" Width="600" MinHeight="300" MinWidth="600" MaxHeight="450" MaxWidth="800">
+        Title="Ask your question" Height="300" Width="600" MinHeight="300" MinWidth="600" MaxHeight="450" MaxWidth="800">
     <Window.Resources>
         <Style TargetType="TextBox">
             <Style.Triggers>

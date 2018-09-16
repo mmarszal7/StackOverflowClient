@@ -1,7 +1,7 @@
-/.vs
-/TestResults
-/packages
-/**/bin
-/**/obj
-/**/*.msi
-/**/*.exe
+**/.vs
+src/TestResults
+**/packages
+**/bin
+**/obj
+**/*.msi
+**/*.exe
